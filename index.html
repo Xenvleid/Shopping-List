@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quiz7</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .cross {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <!-- Create a form with a text field and an “insert” button using HTML.
+
+    Add an <ul> element to your page, but no <li> inside.
+    
+    When the button “insert” is clicked, create a new LI with the text on the field and add it as child of the UL.
+    
+    If the list is empty, display an error.
+    
+    Create a link "delete" dynamically when the LI is created.
+    
+    When the link “delete” is clicked, the same link should disappear.
+    
+    When the link “delete” is clicked, the element should be crossed out
+    
+    When the link “delete” is clicked, the LI to the bottom of the list.
+    
+    Add another button named "delete all".
+    
+    When "delete all" is clicked, delete all crossed-up elements at once. -->
+
+        <h1>Shopping List</h1>
+
+      
+        <ul id="list"></ul>
+        
+
+            <input id="item" type="text" placeholder="Item"/><br/>
+            <button onclick="addElement()">Insert</button>
+            <button onclick="removeAll()">Delete All</button>
+
+    
+        
+        <script type="text/javascript">
+        var list = document.getElementById('list');
+
+        function addElement() {
+            // 1. get the input element
+            var input = document.getElementById('item');
+            // Alert if field is empty
+            if (input.value == "") {
+                alert("Field cannot be empty");
+                return false;
+            }
+            // 2. create the Text Node with the value from the input
+			var text = document.createTextNode(input.value);
+
+            // 3. create a P element
+			var li = document.createElement('li');
+
+			// 4. add the Text Node inside of the P element
+			li.appendChild(text);
+			
+            var btn = document.createElement("button");
+            var btnText = document.createTextNode("delete");
+            btn.appendChild(btnText);
+            btn.onclick = removeItem;
+            li.appendChild(btn);
+    
+			// 6. add the LI element to the UL
+			list.appendChild(li);
+           
+            // focus and clean the input
+			input.value = "";
+			input.focus();
+        }
+
+        function removeItem() {
+            var li = this.parentNode;
+            li.removeChild(this);
+            li.classList = "cross";
+
+            var cloneLI = li.cloneNode(true);
+            li.parentNode.removeChild(li);
+            list.appendChild(cloneLI);
+        }
+
+        function removeAll(){
+           var removeAll = document.getElementsByClassName("cross");
+            Array.from(removeAll).forEach(function(li){
+                li.parentNode.removeChild(li);
+            });
+        }
+	</script>
+    
+</body>
+</html>
